@@ -5,5 +5,4 @@ const MessageForm = () => {
         </div>
     )
 }
-
 export default MessageForm;
