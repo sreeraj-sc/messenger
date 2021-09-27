@@ -1,4 +1,4 @@
-const TheirMessage = ({ lastmessage, message }) => {
+const TheirMessage = ({ lastMessage, message }) => {
     const isFirstMessageByUser = !lastMessage || lastMessage.sender.username !== message.sender.username;
 
     return (
