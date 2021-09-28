@@ -1,45 +1,49 @@
-import { useState } from "react";
+import { useState } from 'react';
 import axios from 'axios';
 
-const LoginForm = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+const projectID = 'ff65c729-810f-4b15-8e64-1aea4eb77dcd';
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+const Modal = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-        const authObject = { 'Project-ID': "edd67718-5fdb-43c0-b023-2055576a9773", 'User-Name': username, 'User-Secret': password };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-            await axios.get('https://api.chatengine.io/chats', { headers: authObject });
+    const authObject = { 'Project-ID': projectID, 'User-Name': username, 'User-Secret': password };
 
-            localStorage.setItem('username', username);
-            localStorage.setItem('password', password);
+    try {
+      await axios.get('https://api.chatengine.io/chats', { headers: authObject });
 
-            window.location.reload();
-        } catch (error) {
-            setError('Oops, incorrect credenttials.')
-        }
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+
+      window.location.reload();
+      setError('');
+    } catch (err) {
+      setError('Oops, incorrect credentials.');
     }
+  };
 
-    return (
-        <div className="wrapper">
-            <div className="form">
-                <h1 className="title">Chat Application</h1>
-                <form onSubmit={handleSubmit}>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="input" placeholder="Username" required />
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input" placeholder="Password" required />
-                    <div align="center">
-                        <button type="submit" className="button">
-                            <span>Start Chatting</span>
-                        </button>
-                    </div>
-                    <h2 className="error">{error}</h2>
-                </form>
-            </div>
-        </div>
-    );
-}
+  return (
+    <div className="wrapper">
+      <div className="form">
+        <h1 className="title">Chat Application</h1>
+        <form onSubmit={handleSubmit}>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="input" placeholder="Username" required />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input" placeholder="Password" required />
+          <div align="center">
+            <button type="submit" className="button">
+              <span>Start chatting</span>
+            </button>
+          </div>
+        </form>
+        <h1>{error}</h1>
+      </div>
+    </div>
 
-export default Login;
+  );
+};
+
+export default Modal;
